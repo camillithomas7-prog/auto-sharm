@@ -307,6 +307,47 @@ $TRANSLATIONS = [
 'common.dow.sat' => ['it' => 'Sab', 'en' => 'Sat', 'ru' => 'Сб',  'es' => 'Sáb', 'de' => 'Sa'],
 'common.dow.sun' => ['it' => 'Dom', 'en' => 'Sun', 'ru' => 'Вс',  'es' => 'Dom', 'de' => 'So'],
 
+// ========== ABOUT ALEX (FOUNDER) ==========
+'home.about.badge' => ['it' => 'Il fondatore', 'en' => 'The founder', 'ru' => 'Основатель', 'es' => 'El fundador', 'de' => 'Der Gründer'],
+'home.about.title_pre'  => ['it' => '',          'en' => '',         'ru' => '',           'es' => '',           'de' => ''],
+'home.about.title_post' => [
+    'it' => ', il vostro autista a Sharm.',
+    'en' => ', your driver in Sharm.',
+    'ru' => ', ваш водитель в Шарме.',
+    'es' => ', vuestro chófer en Sharm.',
+    'de' => ', euer Fahrer in Sharm.',
+],
+'home.about.p1' => [
+    'it' => 'Da oltre <strong>quindici anni</strong> guido a Sharm El Sheikh. Tassisti, italiani in vacanza, dipendenti d\'hotel, gente del posto: a Sharm sanno tutti chi è <strong>Alex</strong>. Ho iniziato con una sola Toyota e oggi seguo una piccola flotta di <strong>auto controllate una per una</strong>, sempre pronte, mai una rogna.',
+    'en' => 'I\'ve been driving in Sharm El Sheikh for over <strong>fifteen years</strong>. Taxi drivers, returning Italian tourists, hotel staff, locals: in Sharm everyone knows <strong>Alex</strong>. I started with a single Toyota and today I run a small fleet of <strong>cars I personally inspect</strong>, always ready, never a hassle.',
+    'ru' => 'Я работаю в Шарм-эль-Шейхе уже более <strong>пятнадцати лет</strong>. Таксисты, итальянские туристы, сотрудники отелей, местные жители — все в Шарме знают <strong>Алекса</strong>. Начал с одной Toyota, а сегодня управляю небольшим парком <strong>лично проверенных авто</strong> — всегда готовых, без проблем.',
+    'es' => 'Llevo más de <strong>quince años</strong> conduciendo en Sharm El Sheikh. Taxistas, turistas italianos que vuelven, personal de hotel, gente del lugar: en Sharm todos saben quién es <strong>Alex</strong>. Empecé con un solo Toyota y hoy gestiono una pequeña flota de <strong>coches revisados uno a uno</strong>, siempre listos, sin problemas.',
+    'de' => 'Seit über <strong>fünfzehn Jahren</strong> fahre ich in Sharm El Sheikh. Taxifahrer, italienische Stammgäste, Hotelpersonal, Einheimische — in Sharm kennt jeder <strong>Alex</strong>. Ich habe mit einem Toyota angefangen, heute betreue ich eine kleine Flotte <strong>persönlich geprüfter Autos</strong> — immer bereit, ohne Stress.',
+],
+'home.about.p2' => [
+    'it' => 'Quando atterri, vengo a prenderti io. Quando hai bisogno di un\'auto, di un transfer last-minute o semplicemente del consiglio giusto su dove cenare: rispondo <strong>io stesso, in italiano, a qualunque ora</strong>. Niente call center, niente intermediari. A Sharm la differenza la fa la <strong>persona di fiducia</strong>.',
+    'en' => 'When you land, I pick you up myself. When you need a car, a last-minute transfer or just the right tip on where to eat: I\'ll <strong>answer you personally, anytime</strong>. No call centres, no middlemen. In Sharm, the difference is the <strong>person you can trust</strong>.',
+    'ru' => 'Когда вы приземляетесь — я встречаю лично. Нужна машина, срочный трансфер или совет, где поужинать — отвечу <strong>сам, в любое время</strong>. Никаких колл-центров и посредников. В Шарме разницу делает <strong>человек, которому доверяешь</strong>.',
+    'es' => 'Cuando aterrizas, te recojo yo. Cuando necesitas un coche, un traslado de última hora o simplemente un consejo sobre dónde cenar: respondo <strong>yo mismo, a cualquier hora</strong>. Sin call centers, sin intermediarios. En Sharm la diferencia la hace la <strong>persona de confianza</strong>.',
+    'de' => 'Wenn du landest, hole ich dich persönlich ab. Wenn du ein Auto brauchst, einen Last-minute-Transfer oder einfach einen guten Tipp zum Essen: <strong>Ich antworte selbst, rund um die Uhr</strong>. Keine Callcenter, keine Vermittler. In Sharm macht den Unterschied der <strong>Mensch, dem du vertraust</strong>.',
+],
+'home.about.feature1.t' => ['it' => 'Auto controllate',    'en' => 'Inspected cars',     'ru' => 'Проверенные авто',     'es' => 'Coches revisados',  'de' => 'Geprüfte Autos'],
+'home.about.feature1.d' => ['it' => 'Una per una, di persona', 'en' => 'One by one, in person',  'ru' => 'Каждое лично',         'es' => 'Una a una, en persona', 'de' => 'Jedes einzeln, persönlich'],
+'home.about.feature2.t' => ['it' => 'Assistenza H24',      'en' => '24/7 support',       'ru' => 'Поддержка 24/7',       'es' => 'Asistencia 24/7',  'de' => '24/7 Service'],
+'home.about.feature2.d' => ['it' => 'In italiano, sempre', 'en' => 'In your language, always','ru' => 'На вашем языке, всегда','es' => 'En tu idioma, siempre','de' => 'In deiner Sprache, immer'],
+'home.about.feature3.t' => ['it' => 'Conoscenza locale',   'en' => 'Local know-how',     'ru' => 'Местные знания',       'es' => 'Conocimiento local',  'de' => 'Vor-Ort-Kenntnis'],
+'home.about.feature3.d' => ['it' => 'Consigli su misura',  'en' => 'Tailored tips',      'ru' => 'Личные советы',        'es' => 'Consejos a medida',  'de' => 'Persönliche Tipps'],
+'home.about.cta_wa'  => ['it' => 'Scrivimi su WhatsApp', 'en' => 'WhatsApp me', 'ru' => 'Напишите мне в WhatsApp', 'es' => 'Escríbeme por WhatsApp', 'de' => 'WhatsApp schreiben'],
+'home.about.cta_fleet' => ['it' => 'Vedi la flotta', 'en' => 'See the fleet', 'ru' => 'Смотреть автопарк', 'es' => 'Ver la flota', 'de' => 'Fuhrpark ansehen'],
+'home.about.available' => ['it' => 'Disponibile su WhatsApp', 'en' => 'Available on WhatsApp', 'ru' => 'Доступен в WhatsApp', 'es' => 'Disponible en WhatsApp', 'de' => 'Auf WhatsApp erreichbar'],
+'home.about.quote' => [
+    'it' => '«Il mio obiettivo è semplice: che ogni cliente torni a casa serenamente, sapendo di essere stato seguito da una persona di parola.»',
+    'en' => '«My goal is simple: every customer goes home with peace of mind, having been looked after by a person of their word.»',
+    'ru' => '«Моя цель проста: чтобы каждый клиент возвращался домой спокойным, зная, что им занимался человек слова.»',
+    'es' => '«Mi objetivo es sencillo: que cada cliente vuelva a casa tranquilo, sabiendo que ha sido atendido por una persona de palabra.»',
+    'de' => '«Mein Ziel ist einfach: Jeder Kunde fährt beruhigt nach Hause — betreut von einem Menschen, auf dessen Wort man zählen kann.»',
+],
+
 // months
 'month.1'  => ['it' => 'Gennaio',   'en' => 'January',   'ru' => 'Январь',   'es' => 'Enero',      'de' => 'Januar'   ],
 'month.2'  => ['it' => 'Febbraio',  'en' => 'February',  'ru' => 'Февраль',  'es' => 'Febrero',    'de' => 'Februar'  ],
