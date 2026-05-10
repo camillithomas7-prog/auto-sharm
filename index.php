@@ -5,6 +5,12 @@ require_once __DIR__ . '/lib/utils.php';
 $cars = rows('SELECT * FROM cars WHERE active = 1 ORDER BY position ASC, daily_price ASC LIMIT 6');
 $cheapest = (float)(val('SELECT MIN(daily_price) FROM cars WHERE active = 1') ?: 22);
 
+$transfersHome = [];
+if (featureEnabled('transfer')) {
+    $transfersHome = rows('SELECT * FROM transfers WHERE active = 1 ORDER BY position ASC, price ASC LIMIT 3');
+}
+$transferCheapest = (float)(val('SELECT MIN(price) FROM transfers WHERE active = 1') ?: 0);
+
 $cPhone = setting('contact_phone', cfg('site.phone'));
 $cWa = setting('contact_whatsapp', cfg('site.whatsapp') ?: $cPhone);
 $waN = $cWa ? preg_replace('/\D/', '', $cWa) : '';
@@ -181,6 +187,58 @@ $_lp = currentLang() !== 'it' ? '?lang=' . urlencode(currentLang()) : '';
     <a href="/flotta.php<?= $_lp ?>" class="btn-outline inline-flex"><?= e(t('cta.see_fleet')) ?> <i data-lucide="arrow-right" class="size-[14px]"></i></a>
   </div>
 </section>
+
+<!-- ====================== TRANSFER PREVIEW ====================== -->
+<?php if ($transfersHome): ?>
+<section class="container-wide py-20 relative">
+  <span aria-hidden="true" class="absolute -left-24 top-20 h-72 w-72 rounded-full bg-brand-500/15 blur-3xl pointer-events-none"></span>
+  <div class="flex items-end justify-between mb-12 flex-wrap gap-3 relative">
+    <div>
+      <div class="badge-brand mb-3"><i data-lucide="plane-landing" class="size-[12px]"></i> <?= e(t('transfer.badge')) ?></div>
+      <h2 class="font-serif text-4xl md:text-5xl font-semibold tracking-tight text-balance"><?= e(t('transfer.hero.title')) ?></h2>
+      <p class="text-ink-400 mt-2 max-w-xl"><?= e(t('transfer.hero.sub')) ?></p>
+    </div>
+    <a href="/transfer.php<?= $_lp ?>" class="btn-outline hidden sm:inline-flex"><?= e(t('transfer.see_routes')) ?> <i data-lucide="arrow-right" class="size-[14px]"></i></a>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <?php foreach ($transfersHome as $i => $tr): ?>
+      <a href="/transfer-detail.php?slug=<?= e($tr['slug']) ?><?= $_lp ? '&lang=' . currentLang() : '' ?>" class="group block animate-slide-up" style="animation-delay:<?= $i * 60 ?>ms">
+        <div data-tilt class="tilt-wrap card-neon relative card-elev rounded-3xl overflow-hidden">
+          <div class="tilt-inner relative">
+            <span class="tilt-shine"></span>
+            <div class="aspect-[4/3] overflow-hidden bg-gradient-to-br from-ink-900 to-ink-950 relative">
+              <?php if ($tr['cover_image'] && file_exists(__DIR__ . $tr['cover_image'])): ?>
+                <img src="<?= e($tr['cover_image']) ?>" alt="<?= e($tr['name']) ?>" class="h-full w-full object-cover group-hover:scale-105 transition duration-700">
+              <?php else: ?>
+                <div class="h-full w-full flex items-center justify-center"><i data-lucide="route" class="size-[100px] text-ink-700 group-hover:text-brand-500/60 transition"></i></div>
+              <?php endif; ?>
+              <span class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#06030a] to-transparent"></span>
+              <div class="absolute top-3 left-3 badge bg-black/55 backdrop-blur text-white border border-white/[.08]"><i data-lucide="users" class="size-[12px]"></i> <?= (int)$tr['vehicle_capacity'] ?> <?= e(t('transfer.passengers')) ?></div>
+              <div class="absolute top-3 right-3 badge bg-black/55 backdrop-blur text-white border border-white/[.08]"><i data-lucide="clock" class="size-[12px]"></i> <?= (int)$tr['duration_min'] ?> <?= e(t('transfer.minutes')) ?></div>
+            </div>
+            <div class="p-5 flex items-center justify-between gap-3">
+              <div class="min-w-0">
+                <div class="font-display font-bold text-lg truncate text-white"><?= e($tr['from_location']) ?> → <?= e($tr['to_location']) ?></div>
+                <div class="flex items-center gap-3 text-xs text-ink-400 mt-1.5">
+                  <span class="flex items-center gap-1"><i data-lucide="car" class="size-[12px]"></i> <?= e(t('transfer.veh.' . $tr['vehicle_type'])) ?></span>
+                </div>
+              </div>
+              <div class="text-right shrink-0">
+                <span class="font-display font-extrabold text-2xl tabular-nums text-gradient-brand text-glow-brand"><?= fmtMoney((float)$tr['price']) ?></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    <?php endforeach; ?>
+  </div>
+
+  <div class="mt-10 sm:hidden text-center">
+    <a href="/transfer.php<?= $_lp ?>" class="btn-outline inline-flex"><?= e(t('transfer.see_routes')) ?> <i data-lucide="arrow-right" class="size-[14px]"></i></a>
+  </div>
+</section>
+<?php endif; ?>
 
 <!-- ====================== HOW IT WORKS ====================== -->
 <section id="come-funziona" class="container-wide py-24">
