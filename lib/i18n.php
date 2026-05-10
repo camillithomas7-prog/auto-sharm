@@ -281,6 +281,46 @@ $TRANSLATIONS = [
 'transfer.veh.minivan' => ['it' => 'Minivan',    'en' => 'Minivan',   'ru' => 'Минивэн',   'es' => 'Monovolumen','de' => 'Minivan'],
 'transfer.veh.bus'     => ['it' => 'Bus',        'en' => 'Coach',     'ru' => 'Автобус',   'es' => 'Autobús',    'de' => 'Bus'],
 
+// ========== CALENDAR ==========
+'car.cal.title'    => ['it' => 'Disponibilità',  'en' => 'Availability', 'ru' => 'Доступность',     'es' => 'Disponibilidad',  'de' => 'Verfügbarkeit'],
+'car.cal.subtitle' => [
+    'it' => 'Tocca le date verdi per scegliere ritiro e riconsegna.',
+    'en' => 'Tap the green dates to pick pick-up and drop-off.',
+    'ru' => 'Нажмите на зелёные даты, чтобы выбрать выдачу и возврат.',
+    'es' => 'Toca las fechas verdes para elegir recogida y devolución.',
+    'de' => 'Tippe auf die grünen Tage für Abholung und Rückgabe.',
+],
+'car.cal.legend.free'     => ['it' => 'Disponibile',     'en' => 'Available',    'ru' => 'Свободно',         'es' => 'Disponible',     'de' => 'Verfügbar'],
+'car.cal.legend.busy'     => ['it' => 'Occupato',        'en' => 'Booked',       'ru' => 'Занято',           'es' => 'Ocupado',        'de' => 'Belegt'],
+'car.cal.legend.pickdrop' => ['it' => 'Ritiro/Riconsegna','en' => 'Pick-up/Drop-off','ru' => 'Выдача/Возврат', 'es' => 'Recogida/Devolución','de' => 'Abholung/Rückgabe'],
+'car.cal.legend.selected' => ['it' => 'Selezionato',     'en' => 'Selected',     'ru' => 'Выбрано',          'es' => 'Seleccionado',   'de' => 'Ausgewählt'],
+'car.cal.choose_drop'     => ['it' => 'Scegli riconsegna','en' => 'Pick drop-off','ru' => 'Выберите возврат','es' => 'Elige la devolución','de' => 'Rückgabe wählen'],
+'car.cal.days_count'      => ['it' => 'giorni',          'en' => 'days',         'ru' => 'дней',             'es' => 'días',           'de' => 'Tage'],
+'car.cal.pickup'          => ['it' => 'Ritiro',          'en' => 'Pick-up',      'ru' => 'Выдача',           'es' => 'Recogida',       'de' => 'Abholung'],
+
+// days of week (abbr.)
+'common.dow.mon' => ['it' => 'Lun', 'en' => 'Mon', 'ru' => 'Пн',  'es' => 'Lun', 'de' => 'Mo'],
+'common.dow.tue' => ['it' => 'Mar', 'en' => 'Tue', 'ru' => 'Вт',  'es' => 'Mar', 'de' => 'Di'],
+'common.dow.wed' => ['it' => 'Mer', 'en' => 'Wed', 'ru' => 'Ср',  'es' => 'Mié', 'de' => 'Mi'],
+'common.dow.thu' => ['it' => 'Gio', 'en' => 'Thu', 'ru' => 'Чт',  'es' => 'Jue', 'de' => 'Do'],
+'common.dow.fri' => ['it' => 'Ven', 'en' => 'Fri', 'ru' => 'Пт',  'es' => 'Vie', 'de' => 'Fr'],
+'common.dow.sat' => ['it' => 'Sab', 'en' => 'Sat', 'ru' => 'Сб',  'es' => 'Sáb', 'de' => 'Sa'],
+'common.dow.sun' => ['it' => 'Dom', 'en' => 'Sun', 'ru' => 'Вс',  'es' => 'Dom', 'de' => 'So'],
+
+// months
+'month.1'  => ['it' => 'Gennaio',   'en' => 'January',   'ru' => 'Январь',   'es' => 'Enero',      'de' => 'Januar'   ],
+'month.2'  => ['it' => 'Febbraio',  'en' => 'February',  'ru' => 'Февраль',  'es' => 'Febrero',    'de' => 'Februar'  ],
+'month.3'  => ['it' => 'Marzo',     'en' => 'March',     'ru' => 'Март',     'es' => 'Marzo',      'de' => 'März'     ],
+'month.4'  => ['it' => 'Aprile',    'en' => 'April',     'ru' => 'Апрель',   'es' => 'Abril',      'de' => 'April'    ],
+'month.5'  => ['it' => 'Maggio',    'en' => 'May',       'ru' => 'Май',      'es' => 'Mayo',       'de' => 'Mai'      ],
+'month.6'  => ['it' => 'Giugno',    'en' => 'June',      'ru' => 'Июнь',     'es' => 'Junio',      'de' => 'Juni'     ],
+'month.7'  => ['it' => 'Luglio',    'en' => 'July',      'ru' => 'Июль',     'es' => 'Julio',      'de' => 'Juli'     ],
+'month.8'  => ['it' => 'Agosto',    'en' => 'August',    'ru' => 'Август',   'es' => 'Agosto',     'de' => 'August'   ],
+'month.9'  => ['it' => 'Settembre', 'en' => 'September', 'ru' => 'Сентябрь', 'es' => 'Septiembre', 'de' => 'September'],
+'month.10' => ['it' => 'Ottobre',   'en' => 'October',   'ru' => 'Октябрь',  'es' => 'Octubre',    'de' => 'Oktober'  ],
+'month.11' => ['it' => 'Novembre',  'en' => 'November',  'ru' => 'Ноябрь',   'es' => 'Noviembre',  'de' => 'November' ],
+'month.12' => ['it' => 'Dicembre',  'en' => 'December',  'ru' => 'Декабрь',  'es' => 'Diciembre',  'de' => 'Dezember' ],
+
 ];
 
 function tAmenity(string $text): string {
@@ -298,6 +338,10 @@ function tAmenity(string $text): string {
     $needle = mb_strtolower(trim($text));
     if (isset($index[$needle])) return t($index[$needle]);
     return $text;
+}
+
+function tMonth(int $m): string {
+    return t('month.' . max(1, min(12, $m)));
 }
 
 function t(string $key, array $vars = []): string {
