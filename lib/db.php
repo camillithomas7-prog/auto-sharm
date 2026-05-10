@@ -70,5 +70,5 @@ function newId(): string {
 }
 
 function tableExists(string $name): bool {
-    try { q("SELECT 1 FROM \"$name\" LIMIT 1"); return true; } catch (Throwable $e) { return false; }
+    try { q("SELECT 1 FROM `$name` LIMIT 1"); return true; } catch (Throwable $e) { return false; }
 }

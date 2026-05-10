@@ -212,11 +212,13 @@ function ddlFor(string $table, array $cols, string $driver): string {
         $c = preg_replace('/\bINT\b/', 'INTEGER', $c);
         // DATE
         $c = preg_replace('/\bDATE\b/', $driver === 'mysql' ? 'DATE' : 'TEXT', $c);
-        // TEXT
-        $c = preg_replace('/\bTEXT\b/', $driver === 'mysql' ? 'TEXT' : 'TEXT', $c);
+        // MySQL non supporta TEXT come UNIQUE/PRIMARY KEY senza key length: usa VARCHAR(190)
+        if ($driver === 'mysql' && preg_match('/\b(UNIQUE|PRIMARY KEY)\b/i', $c)) {
+            $c = preg_replace('/\bTEXT\b/', 'VARCHAR(190)', $c);
+        }
         $lines[] = $c;
     }
-    $sql = "CREATE TABLE IF NOT EXISTS \"$table\" (\n  " . implode(",\n  ", $lines) . "\n)";
+    $sql = "CREATE TABLE IF NOT EXISTS `$table` (\n  " . implode(",\n  ", $lines) . "\n)";
     if ($driver === 'mysql') $sql .= ' ENGINE=InnoDB DEFAULT CHARSET=utf8mb4';
     return $sql;
 }
@@ -228,7 +230,7 @@ echo "✓ Schema creato/verificato\n";
 
 if ($reset) {
     foreach (array_keys($tables) as $t) {
-        try { $pdo->exec("DELETE FROM \"$t\""); } catch (Throwable $e) {}
+        try { $pdo->exec("DELETE FROM `$t`"); } catch (Throwable $e) {}
     }
     echo "✓ Dati cancellati\n";
 }
