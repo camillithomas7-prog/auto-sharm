@@ -267,6 +267,63 @@ $_lp = currentLang() !== 'it' ? '?lang=' . urlencode(currentLang()) : '';
   </div>
 </section>
 
+<!-- ====================== ABOUT ALEX (FOUNDER) ====================== -->
+<section class="container-wide py-20 sm:py-24 relative">
+  <span aria-hidden="true" class="absolute -right-32 top-10 h-96 w-96 rounded-full bg-brand-500/15 blur-3xl pointer-events-none"></span>
+  <span aria-hidden="true" class="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-brand-700/20 blur-3xl pointer-events-none"></span>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center relative">
+    <!-- Foto Alex con cornici decorative -->
+    <div class="relative animate-rise">
+      <div class="absolute -inset-4 bg-[radial-gradient(closest-side,rgba(255,30,30,.45),transparent_70%)] blur-2xl -z-10"></div>
+      <div class="absolute -top-3 -left-3 h-24 w-24 rounded-2xl bg-brand-500/25 -z-10 ring-1 ring-brand-500/40"></div>
+      <div class="absolute -bottom-3 -right-3 h-32 w-32 rounded-3xl bg-white/[.05] -z-10 ring-1 ring-white/[.08]"></div>
+      <div class="relative rounded-3xl overflow-hidden ring-1 ring-white/[.08] shadow-pop">
+        <img src="/assets/founder-alex.jpg?v=1" alt="Alex — fondatore Auto Sharm" loading="lazy" class="w-full h-auto block">
+      </div>
+      <div class="absolute bottom-5 left-5 bg-black/70 backdrop-blur-xl rounded-2xl px-4 py-2.5 ring-1 ring-white/[.1] flex items-center gap-2.5">
+        <span class="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-breathe shadow-[0_0_10px_2px_rgba(16,185,129,.7)]"></span>
+        <span class="text-sm font-medium text-white"><?= e(t('home.about.available')) ?></span>
+      </div>
+    </div>
+
+    <!-- Testo -->
+    <div class="animate-rise" style="animation-delay:.15s">
+      <div class="badge-brand mb-4"><i data-lucide="user-round" class="size-[14px]"></i> <?= e(t('home.about.badge')) ?></div>
+      <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-balance">
+        <span class="text-gradient-brand text-glow-brand">Alex</span><span class="text-white"><?= e(t('home.about.title_post')) ?></span>
+      </h2>
+
+      <div class="mt-6 space-y-4 text-ink-300 text-[17px] leading-relaxed text-pretty">
+        <p><?= t('home.about.p1') ?></p>
+        <p><?= t('home.about.p2') ?></p>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4 mt-8">
+        <?php foreach ([
+          ['check-circle-2', t('home.about.feature1.t'), t('home.about.feature1.d')],
+          ['message-circle', t('home.about.feature2.t'), t('home.about.feature2.d')],
+          ['map-pin',        t('home.about.feature3.t'), t('home.about.feature3.d')],
+        ] as $f): ?>
+          <div>
+            <div class="flex items-center gap-2"><i data-lucide="<?= $f[0] ?>" class="size-[20px] text-brand-400 shrink-0"></i><div class="font-display text-base sm:text-lg font-bold text-white"><?= e($f[1]) ?></div></div>
+            <div class="text-xs text-ink-400 mt-1"><?= e($f[2]) ?></div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+
+      <div class="flex flex-wrap gap-3 mt-8">
+        <a href="<?= e($waLink) ?>" target="_blank" rel="noopener" class="btn-primary"><i data-lucide="message-circle" class="size-[16px]"></i> <?= e(t('home.about.cta_wa')) ?></a>
+        <a href="/flotta.php<?= $_lp ?>" class="btn-outline"><i data-lucide="car" class="size-[16px]"></i> <?= e(t('home.about.cta_fleet')) ?></a>
+      </div>
+
+      <blockquote class="mt-8 pl-5 border-l-2 border-brand-500 italic text-ink-400 text-pretty">
+        <?= e(t('home.about.quote')) ?>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
 <!-- ====================== CTA STRIP ====================== -->
 <section class="container-wide pb-20">
   <div class="relative rounded-3xl overflow-hidden border border-white/[.07] bg-gradient-to-br from-[#1a0508] via-[#0a0306] to-[#06030a]">
