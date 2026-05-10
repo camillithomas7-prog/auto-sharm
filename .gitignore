@@ -1,0 +1,10 @@
+config.php
+config-storage/
+uploads/photos/*
+uploads/logs/*
+!uploads/photos/.gitkeep
+!uploads/logs/.gitkeep
+.DS_Store
+Thumbs.db
+*.log
+node_modules/
