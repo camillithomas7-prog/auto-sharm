@@ -73,9 +73,17 @@ che noleggia auto per conto di proprietari terzi e trattiene una **% commissione
 ricavi (`cars.manager_commission_pct`, default 20%). Visibile in dashboard e in
 "Spese & bilancio" come KPI separato + tabella per auto.
 
-## Deploy Hostinger (TODO)
+## Deploy Hostinger
 
-Quando pronto:
-1. In `config.php` togliere il blocco SQLite e attivare quello MySQL con le credenziali Hostinger
-2. Push su GitHub → auto-deploy
-3. Visitare `setup.php` una volta sul dominio per creare lo schema
+1. **hPanel → Database → MySQL**: crea un nuovo database. Annota host (di solito `localhost`), nome db, user, password.
+2. **hPanel → Git**: crea repository con URL `https://github.com/camillithomas7-prog/auto-sharm.git`, branch `main`, percorso `public_html`, abilita **Auto-deploy**.
+3. **File Manager** → in `public_html/` crea `config.php` copiando `config.sample.php`. Commenta il blocco SQLite e decommenta quello MySQL con le credenziali del punto 1. Aggiorna `site.url` con il tuo dominio.
+4. Apri `https://tuo-dominio/setup.php` UNA volta per creare lo schema + utente admin demo + flotta demo + coupon `SHARM10`.
+5. Login admin (`admin@autosharm.com` / `admin123`) → cambia subito la password in **Impostazioni**.
+6. **Sicurezza post-deploy**: rinomina o proteggi `setup.php` (puoi cancellarlo dal File Manager — sarà rigenerato a ogni deploy ma non è esposto come endpoint sensibile, comunque meglio toglierlo dopo il primo run).
+
+### Update successivi
+Push su `main` → Hostinger ricostruisce automaticamente. Niente è da fare manualmente. Se aggiungi tabelle: visita di nuovo `setup.php` (idempotente, non cancella dati).
+
+### Sezione Transfer aeroporto
+Per attivarla sul sito: vai in **Admin → Impostazioni → Sezioni del sito** e abilita "Transfer aeroporto". Default OFF.
