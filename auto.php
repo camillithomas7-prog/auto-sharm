@@ -16,6 +16,11 @@ if (!$c) {
 
 $features = parseFeatures($c['features']);
 
+// Bookings (rimappo i nomi colonna a check_in/check_out per riusare il partial calendario)
+$_rawBookings = rows("SELECT pickup_date AS check_in, dropoff_date AS check_out FROM bookings WHERE car_id = ? AND status NOT IN ('cancelled','rejected')", [$c['id']]);
+$bookings = $_rawBookings;
+$blocks   = rows("SELECT start_date, end_date FROM date_blocks WHERE car_id = ?", [$c['id']]);
+
 $title = $c['name'];
 require __DIR__ . '/partials/head.php';
 require __DIR__ . '/partials/site-header.php';
@@ -48,6 +53,13 @@ $_lp = currentLang() !== 'it' ? '?lang=' . urlencode(currentLang()) : '';
 <div class="container-wide pb-20">
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
     <div class="lg:col-span-2 space-y-8">
+      <!-- AVAILABILITY CALENDAR -->
+      <div>
+        <h2 class="font-serif text-3xl font-semibold tracking-tight mb-1"><?= e(t('car.cal.title')) ?></h2>
+        <p class="text-ink-400 text-sm mb-4"><?= e(t('car.cal.subtitle')) ?></p>
+        <?php require __DIR__ . '/partials/calendar-public.php'; ?>
+      </div>
+
       <!-- SPECS STRIP -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <?php foreach ([
@@ -106,7 +118,7 @@ $_lp = currentLang() !== 'it' ? '?lang=' . urlencode(currentLang()) : '';
     </div>
 
     <!-- BOOKING CARD -->
-    <aside id="book" class="lg:sticky lg:top-24 self-start scroll-mt-24" x-data="bookingForm()">
+    <aside id="book" class="lg:sticky lg:top-24 self-start scroll-mt-24" x-data="bookingForm()" x-init="initFromStorage()" @as-cal-pick.window="syncFromCal($event.detail)">
       <div class="card-elev p-6 shadow-card">
         <div class="flex items-baseline gap-1 mb-4">
           <span class="font-display text-3xl font-bold text-brand-600"><?= fmtMoney((float)$c['daily_price']) ?></span>
@@ -223,6 +235,19 @@ function bookingForm() {
     dial: 'IT', dialOpen: false, dialSearch: '',
     phoneCountries: <?= json_encode(phoneCountryList(currentLang())) ?>,
     q: null, busy: false, done: null, err: '',
+    initFromStorage() {
+      try {
+        const saved = JSON.parse(sessionStorage.getItem('as_book_' + this.carId) || '{}');
+        if (saved.from) this.from = saved.from;
+        if (saved.to)   this.to   = saved.to;
+      } catch(e) {}
+      if (this.from && this.to) this.quote();
+    },
+    syncFromCal(d) {
+      this.from = d && d.from || '';
+      this.to   = d && d.to   || '';
+      if (this.from && this.to) this.quote(); else this.q = null;
+    },
     fmt(n) { return new Intl.NumberFormat('it-IT', { style:'currency', currency:'EUR' }).format(n || 0); },
     flagOf(code) {
       if (!code || code.length !== 2) return '';
