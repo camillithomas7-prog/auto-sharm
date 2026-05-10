@@ -1,9 +1,4 @@
 <?php
-// DEBUG temporaneo (verrà rimosso una volta capito il 500 in deploy)
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-
 function cfg(?string $key = null) {
     static $config = null;
     if ($config === null) {
