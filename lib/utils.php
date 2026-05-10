@@ -16,6 +16,33 @@ function featureEnabled(string $key): bool {
     return $raw === '1';
 }
 
+/**
+ * Restituisce il numero WhatsApp configurato (digits only).
+ * Se il campo "contact_whatsapp" è vuoto o ancora il placeholder demo,
+ * cade automaticamente sul telefono.
+ */
+function whatsappNumber(): string {
+    $placeholders = ['+20100000000', '20100000000', '100000000']; // varianti del demo
+    $isDemo = function(?string $v) use ($placeholders): bool {
+        if (!$v) return true;
+        $digits = preg_replace('/\D/', '', $v);
+        return in_array($digits, $placeholders, true);
+    };
+    $wa = setting('contact_whatsapp', cfg('site.whatsapp'));
+    if ($isDemo($wa)) {
+        $wa = setting('contact_phone', cfg('site.phone'));
+    }
+    if ($isDemo($wa)) return '';
+    return preg_replace('/\D/', '', $wa);
+}
+
+function whatsappLink(?string $messageKey = 'contact.wa_msg'): string {
+    $n = whatsappNumber();
+    if (!$n) return '/contatti.php';
+    $msg = $messageKey ? rawurlencode(t($messageKey)) : '';
+    return 'https://wa.me/' . $n . ($msg ? '?text=' . $msg : '');
+}
+
 function setting(string $key, ?string $default = null): ?string {
     static $cache = null;
     if ($cache === null) {
