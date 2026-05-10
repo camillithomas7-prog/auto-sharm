@@ -22,11 +22,17 @@ function featureEnabled(string $key): bool {
  * cade automaticamente sul telefono.
  */
 function whatsappNumber(): string {
-    $placeholders = ['+20100000000', '20100000000', '100000000']; // varianti del demo
-    $isDemo = function(?string $v) use ($placeholders): bool {
+    // Considero "demo/placeholder" qualsiasi numero che:
+    //  a) è vuoto
+    //  b) corrisponde esattamente al demo "+20 100 000 0000"
+    //  c) contiene 5+ zeri consecutivi nella parte numerica (chiaramente un esempio)
+    $isDemo = function(?string $v): bool {
         if (!$v) return true;
         $digits = preg_replace('/\D/', '', $v);
-        return in_array($digits, $placeholders, true);
+        if ($digits === '') return true;
+        if ($digits === '201000000000') return true;
+        if (preg_match('/0{5,}/', $digits)) return true;
+        return false;
     };
     $wa = setting('contact_whatsapp', cfg('site.whatsapp'));
     if ($isDemo($wa)) {
