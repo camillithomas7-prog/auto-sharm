@@ -4,8 +4,9 @@ require_once __DIR__ . '/lib/utils.php';
 
 $cPhone = setting('contact_phone', cfg('site.phone'));
 $cEmail = setting('contact_email', cfg('site.email'));
-$cWa = setting('contact_whatsapp', cfg('site.whatsapp') ?: $cPhone);
-$cAddr = setting('contact_address', cfg('site.address'));
+$waN    = whatsappNumber();
+$cWa    = $waN ? '+' . $waN : '';
+$cAddr  = setting('contact_address', cfg('site.address'));
 
 $title = t('nav.contact');
 require __DIR__ . '/partials/head.php';
@@ -17,8 +18,8 @@ require __DIR__ . '/partials/site-header.php';
   <p class="text-ink-500 mt-3 max-w-xl"><?= e(t('contact.sub')) ?></p>
 
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
-    <?php if ($cWa): $waN = preg_replace('/\D/', '', $cWa); ?>
-      <a href="https://wa.me/<?= e($waN) ?>?text=<?= e(rawurlencode(t('contact.wa_msg'))) ?>" target="_blank" rel="noopener" class="card p-5 card-hover bg-emerald-500 text-white border-emerald-600 group">
+    <?php if ($waN): ?>
+      <a href="<?= e(whatsappLink()) ?>" target="_blank" rel="noopener" class="card p-5 card-hover bg-emerald-500 text-white border-emerald-600 group">
         <i data-lucide="message-circle" class="size-[24px] mb-3"></i>
         <div class="font-display font-bold">WhatsApp</div>
         <div class="text-xs opacity-90 mt-1"><?= e($cWa) ?></div>
