@@ -46,20 +46,20 @@ $_lpCal = currentLang() !== 'it' ? '&lang=' . urlencode(currentLang()) : '';
       $d = date('Y-m-d', $ts);
       $past = $d < $today;
       $clickable = $in && !$past && ($st === 'free' || $st === 'check_out');
-      $base = $st === 'booked'    ? 'bg-red-500/15 text-red-300 line-through' :
-             ($st === 'check_in'  ? 'bg-amber-400/15 text-amber-200' :
-             ($st === 'check_out' ? 'bg-amber-400/15 text-amber-200' :
-             ($st === 'blocked'   ? 'bg-white/[.04] text-ink-500' :
-                                    'bg-emerald-500/15 text-emerald-300')));
+      $base = $st === 'booked'    ? 'bg-red-500/30 text-red-200 ring-1 ring-red-500/40 line-through' :
+             ($st === 'check_in'  ? 'bg-amber-400/30 text-amber-100 ring-1 ring-amber-400/40' :
+             ($st === 'check_out' ? 'bg-amber-400/30 text-amber-100 ring-1 ring-amber-400/40' :
+             ($st === 'blocked'   ? 'bg-white/[.04] text-ink-500 ring-1 ring-white/[.06]' :
+                                    'bg-emerald-500/35 text-emerald-100 ring-1 ring-emerald-400/50')));
       $not_in_cls = 'text-ink-700';
       $past_cls = 'text-ink-700 line-through';
     ?>
       <?php if ($clickable): ?>
-        <button type="button" @click="pick('<?= $d ?>')" :class="cellCls('<?= $d ?>', '<?= $base ?> hover:ring-2 hover:ring-emerald-500/50 hover:scale-[1.04]')" class="aspect-square min-h-[42px] flex items-center justify-center text-sm font-medium rounded-lg transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500">
+        <button type="button" @click="pick('<?= $d ?>')" :class="overlayCls('<?= $d ?>')" class="aspect-square min-h-[44px] flex items-center justify-center text-sm font-semibold rounded-lg transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500 hover:ring-2 hover:ring-emerald-300 hover:scale-[1.05] <?= $base ?>">
           <?= (int)date('j', $ts) ?>
         </button>
       <?php else: ?>
-        <div class="aspect-square min-h-[42px] flex items-center justify-center text-sm rounded-lg <?= !$in ? $not_in_cls : ($past ? $past_cls : $base) ?>">
+        <div class="aspect-square min-h-[44px] flex items-center justify-center text-sm rounded-lg <?= !$in ? $not_in_cls : ($past ? $past_cls : $base) ?>">
           <?= (int)date('j', $ts) ?>
         </div>
       <?php endif; ?>
@@ -109,10 +109,11 @@ function asCalPicker(carId) {
       const [y, m, day] = d.split('-');
       return `${day}/${m}/${y}`;
     },
-    cellCls(d, def) {
-      if (d === this.from || d === this.to) return 'bg-brand-500 text-white shadow-[0_0_18px_-2px_rgba(255,30,30,.85)] ring-2 ring-brand-400';
-      if (this.from && this.to && d > this.from && d < this.to) return 'bg-brand-500/30 text-brand-100';
-      return def;
+    overlayCls(d) {
+      // ritorna SOLO le classi additive per l'evidenziazione — il colore base è statico nel button
+      if (d === this.from || d === this.to) return '!bg-brand-500 !text-white shadow-[0_0_22px_-2px_rgba(255,30,30,.95)] !ring-2 !ring-brand-400';
+      if (this.from && this.to && d > this.from && d < this.to) return '!bg-brand-500/40 !text-white !ring-1 !ring-brand-400/60';
+      return '';
     },
     pick(d) {
       if (!this.from || (this.from && this.to)) {
