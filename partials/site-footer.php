@@ -1,8 +1,8 @@
 <?php
 $cPhone = setting('contact_phone', cfg('site.phone'));
 $cEmail = setting('contact_email', cfg('site.email'));
-$cWa = setting('contact_whatsapp', cfg('site.whatsapp') ?: $cPhone);
-$cAddr = setting('contact_address', cfg('site.address'));
+$waN    = whatsappNumber();
+$cAddr  = setting('contact_address', cfg('site.address'));
 $year = date('Y');
 ?>
 <footer class="relative mt-24 border-t border-white/[.06] bg-gradient-to-b from-[#06030a] to-[#03010a]">
@@ -17,8 +17,8 @@ $year = date('Y');
         </div>
         <p class="mt-4 text-sm text-ink-400 leading-relaxed"><?= e(t('footer.tagline')) ?></p>
         <div class="flex gap-2 mt-6">
-          <?php if ($cWa): $waN = preg_replace('/\D/', '', $cWa); ?>
-            <a href="https://wa.me/<?= e($waN) ?>" target="_blank" rel="noopener" class="h-11 w-11 rounded-xl bg-emerald-500 text-white flex items-center justify-center hover:bg-emerald-400 transition shadow-[0_0_24px_-6px_rgba(16,185,129,.7)]" aria-label="WhatsApp"><i data-lucide="message-circle" class="size-[18px]"></i></a>
+          <?php if ($waN): ?>
+            <a href="<?= e(whatsappLink()) ?>" target="_blank" rel="noopener" class="h-11 w-11 rounded-xl bg-emerald-500 text-white flex items-center justify-center hover:bg-emerald-400 transition shadow-[0_0_24px_-6px_rgba(16,185,129,.7)]" aria-label="WhatsApp"><i data-lucide="message-circle" class="size-[18px]"></i></a>
           <?php endif; ?>
           <?php if ($cPhone): ?>
             <a href="tel:<?= e(preg_replace('/[^0-9+]/','',$cPhone)) ?>" class="h-11 w-11 rounded-xl bg-white/[.04] border border-white/[.08] text-ink-200 hover:text-white hover:bg-white/[.08] flex items-center justify-center transition" aria-label="Phone"><i data-lucide="phone" class="size-[18px]"></i></a>
