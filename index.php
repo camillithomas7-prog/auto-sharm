@@ -11,10 +11,7 @@ if (featureEnabled('transfer')) {
 }
 $transferCheapest = (float)(val('SELECT MIN(price) FROM transfers WHERE active = 1') ?: 0);
 
-$cPhone = setting('contact_phone', cfg('site.phone'));
-$cWa = setting('contact_whatsapp', cfg('site.whatsapp') ?: $cPhone);
-$waN = $cWa ? preg_replace('/\D/', '', $cWa) : '';
-$waLink = $waN ? 'https://wa.me/' . $waN . '?text=' . rawurlencode(t('contact.wa_msg')) : '/contatti.php';
+$waLink = whatsappLink();
 
 $title = t('meta.home_title');
 require __DIR__ . '/partials/head.php';
