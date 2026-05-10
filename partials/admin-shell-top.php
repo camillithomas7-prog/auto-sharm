@@ -77,6 +77,7 @@ try { $_unread = (int)val("SELECT COUNT(*) FROM notifications WHERE read_at IS N
         <div class="font-display font-semibold"><?= e($title ?? 'Admin') ?></div>
       </div>
       <a href="/" target="_blank" class="btn-outline text-sm h-10 hidden sm:inline-flex"><i data-lucide="external-link" class="size-[14px]"></i> Sito</a>
+      <a href="/" target="_blank" class="sm:hidden h-10 w-10 rounded-xl border border-ink-200 dark:border-ink-700/80 flex items-center justify-center text-ink-700 dark:text-ink-200 hover:bg-ink-50 dark:hover:bg-ink-800 transition" aria-label="Vai al sito"><i data-lucide="external-link" class="size-[18px]"></i></a>
     </header>
     <main class="p-5 lg:p-7 max-w-full">
       <?php if ($_flash): ?>
