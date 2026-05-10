@@ -308,6 +308,15 @@ if ((int)val('SELECT COUNT(*) FROM coupons') === 0) {
     echo "✓ Coupon demo: SHARM10 (10% di sconto)\n";
 }
 
+// Default: attiva la sezione Transfer (sempre, idempotente)
+$_exists = (int)val('SELECT COUNT(*) FROM settings WHERE setting_key = ?', ['feature_transfer']);
+if ($_exists) {
+    q('UPDATE settings SET setting_value = ? WHERE setting_key = ?', ['1', 'feature_transfer']);
+} else {
+    q('INSERT INTO settings (setting_key, setting_value) VALUES (?, ?)', ['feature_transfer', '1']);
+}
+echo "✓ Sezione Transfer aeroporto: attiva (feature_transfer=1)\n";
+
 // Seed transfer demo (idempotente)
 if ((int)val('SELECT COUNT(*) FROM transfers') === 0) {
     $transfers = [
@@ -349,6 +358,33 @@ if ((int)val('SELECT COUNT(*) FROM transfers') === 0) {
     }
     echo "✓ Transfer demo: " . count($transfers) . " tratte inserite\n";
 }
+
+// Re-applica le cover di default ai record demo (idempotente: solo se la cover punta a un file inesistente o è vuota)
+$_coverFix = [
+    // cars
+    ['cars',     'Hyundai i10',           '/assets/car-i10.jpg'],
+    ['cars',     'Toyota Corolla',        '/assets/car-corolla.jpg'],
+    ['cars',     'Jeep Wrangler',         '/assets/car-wrangler.jpg'],
+    ['cars',     'Mercedes-Benz E-Class', '/assets/car-eclass.jpg'],
+    ['cars',     'Hyundai H1',            '/assets/car-h1.jpg'],
+    // transfers — usano transfer-sedan / transfer-minivan come da seed iniziale
+    ['transfers','Aeroporto SSH → Sharm centro', '/assets/transfer-sedan.jpg'],
+    ['transfers','Aeroporto SSH → Naama Bay',    '/assets/transfer-sedan.jpg'],
+    ['transfers','Aeroporto SSH → Nabq Bay',     '/assets/transfer-minivan.jpg'],
+    ['transfers','Aeroporto SSH → Dahab',        '/assets/transfer-minivan.jpg'],
+];
+$_fixedCovers = 0;
+foreach ($_coverFix as [$tbl, $name, $path]) {
+    $r = row("SELECT id, cover_image FROM `$tbl` WHERE name = ?", [$name]);
+    if (!$r) continue;
+    $cur = (string)($r['cover_image'] ?? '');
+    $exists = $cur && file_exists(__DIR__ . $cur);
+    if (!$exists) {
+        q("UPDATE `$tbl` SET cover_image = ? WHERE id = ?", [$path, $r['id']]);
+        $_fixedCovers++;
+    }
+}
+if ($_fixedCovers) echo "✓ Cover image aggiornate: $_fixedCovers record\n";
 
 echo "\n✅ Setup completato.\n";
 echo "   → Login admin: " . cfg('admin_default.email') . "\n";
