@@ -139,11 +139,11 @@ $_lp = currentLang() !== 'it' ? '?lang=' . urlencode(currentLang()) : '';
           <div class="grid grid-cols-2 gap-0 rounded-2xl border border-ink-100 dark:border-ink-700/60 bg-white dark:bg-ink-900/40 shadow-sm overflow-hidden divide-x divide-ink-100 dark:divide-ink-700/60 focus-within:border-brand-500 focus-within:ring-2 focus-within:ring-brand-500/15 transition-all">
             <label class="block px-3.5 py-2.5 cursor-pointer hover:bg-ink-50/60 dark:hover:bg-ink-900/60">
               <span class="text-[10px] font-semibold uppercase tracking-wider text-ink-400"><?= e(t('book.pickup_date')) ?></span>
-              <input type="date" required class="w-full bg-transparent outline-none text-[15px] font-medium text-ink-800 dark:text-ink-100 mt-0.5" x-model="from" @change="quote()">
+              <input id="as-book-from" type="date" required class="w-full bg-transparent outline-none text-[15px] font-medium text-ink-800 dark:text-ink-100 mt-0.5" x-model="from" @change="quote()">
             </label>
             <label class="block px-3.5 py-2.5 cursor-pointer hover:bg-ink-50/60 dark:hover:bg-ink-900/60">
               <span class="text-[10px] font-semibold uppercase tracking-wider text-ink-400"><?= e(t('book.dropoff_date')) ?></span>
-              <input type="date" required class="w-full bg-transparent outline-none text-[15px] font-medium text-ink-800 dark:text-ink-100 mt-0.5" x-model="to" @change="quote()">
+              <input id="as-book-to" type="date" required class="w-full bg-transparent outline-none text-[15px] font-medium text-ink-800 dark:text-ink-100 mt-0.5" x-model="to" @change="quote()">
             </label>
           </div>
 
@@ -227,6 +227,30 @@ $_lp = currentLang() !== 'it' ? '?lang=' . urlencode(currentLang()) : '';
 </div>
 
 <script>
+// Listener vanilla — sincronizza gli input data anche se Alpine sul form fallisse
+(function(){
+  function syncDateInputs(detail){
+    var f = document.getElementById('as-book-from');
+    var t = document.getElementById('as-book-to');
+    var from = (detail && detail.from) || '';
+    var to   = (detail && detail.to)   || '';
+    if (f) { f.value = from; f.dispatchEvent(new Event('input',{bubbles:true})); f.dispatchEvent(new Event('change',{bubbles:true})); }
+    if (t) { t.value = to;   t.dispatchEvent(new Event('input',{bubbles:true})); t.dispatchEvent(new Event('change',{bubbles:true})); }
+  }
+  window.addEventListener('as-cal-pick', function(ev){ syncDateInputs(ev.detail); });
+  // Al primo load: se sessionStorage ha già date, applica (calendar partial fa già broadcast — questo è solo extra-safe)
+  document.addEventListener('DOMContentLoaded', function(){
+    try {
+      var carIdEl = document.querySelector('[data-as-calendar]');
+      if (!carIdEl) return;
+      var cid = carIdEl.getAttribute('data-car-id') || '';
+      cid = JSON.parse(cid);
+      var saved = JSON.parse(sessionStorage.getItem('as_book_' + cid) || '{}');
+      if (saved.from || saved.to) syncDateInputs(saved);
+    } catch(e){}
+  });
+})();
+
 function bookingForm() {
   return {
     carId: <?= json_encode($c['id']) ?>,
