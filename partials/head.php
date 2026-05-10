@@ -16,6 +16,12 @@ $_isAdminCtx = strpos($_SERVER['PHP_SELF'] ?? '', '/admin/') !== false;
 <meta name="description" content="<?= e($metaDesc ?? t('home.hero.sub')) ?>">
 <meta name="theme-color" content="#0a0306">
 <link rel="icon" type="image/png" href="/assets/logo.png">
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Auto Sharm">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800;900&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -92,6 +98,12 @@ tailwind.config = {
   } }
 };
 try { if (localStorage.getItem('as-theme') === 'light' && <?= $_isAdminCtx ? 'true' : 'false' ?>) document.documentElement.classList.remove('dark'); } catch(e){}
+// Registra il Service Worker (PWA installabile)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('/sw.js').catch(function(){});
+  });
+}
 </script>
 <style type="text/tailwindcss">
 @layer base {
